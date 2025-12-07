@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('absensis', function (Blueprint $table) {
             $table->id();
+            $table->foregnId('dosen_id')->constrained('dosens')->onDelete('cascade');
+            $table->foregnId();('mahasiswa_id')->constrained('mahasiswas')->onDelete('cascade');
+            $table->date('tanggal');
+            $table->time('waktu_masuk');
+            $table->time('waktu_keluar')->nullable();
+            $table->enum('metiode_absen', ['qr_code', 'face_id']);
+            $table->string('kode_unik')->unique();
+            $table->timeStamp('kode_berlaku_hingga');
+            $table->boolean('sudah_absen')->default(false);
             $table->timestamps();
         });
     }
